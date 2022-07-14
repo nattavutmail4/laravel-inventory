@@ -23,6 +23,9 @@
     php artisan migrate:reset Rollback all database migrations 
     php artisan migrate:rollback เป็นการลบ table ฐานข้อมูลออก ทั้งหมด
     php artisan migrate:status Show the status of each migration
+    คำสั่งลัด
+    php artisan make:model --migration --controller Product --api ตัวอย่างการสร้างไฟล์ทั้งสาม migration controller model 
+    php artisan make:model Product -mc --api เหมือนคำสั่งด้านบนแค่ย่อให้สั้นลง
    /------------------------------------------------------------
      Seeding การ insert ข้อมูล
    ------------------------------------------------------------
