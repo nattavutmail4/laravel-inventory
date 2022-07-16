@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,4 +19,14 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::resource('product',ProductController::class);
+//public route
+Route::post('register',[AuthController::class, 'register']);
+Route::post('login',[AuthController::class, 'login']);
+
+// Protected routes
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::resource('products', ProductController::class);
+    Route::get('products/search/{keyword}', [ProductController::class, 'search']);
+    Route::post('logout',[AuthController::class, 'logout']);
+});
+

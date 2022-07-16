@@ -15,22 +15,23 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
-    // protected $table = "users_company";
     protected $fillable = [
         'fullname',
         'username',
         'email',
+        'email_verified_at',
         'password',
         'tel',
-        'role'
+        'avatar',
+        'role',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be hidden for arrays.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $hidden = [
         'password',
@@ -38,11 +39,20 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Products Relationship
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class)->orderBy('id', 'desc');
+    }
+
 }

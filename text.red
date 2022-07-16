@@ -37,12 +37,19 @@
   5 การสร้าง Model สำหรับผูกกับตาราง
      คำสั่ง php artisan make::model  ชื่อ model 
    
+  6 การติดตั้งและใช้งาน laravel sanctum 
+     - composer require laravel/sanctum
+     - การนำ sanctum มาใช้งาน
+        - php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+        - การ add sanctum's middleware to your api middleware group
+           - 1 ไปที่ app/http/kernel
+           - 2 ให้ไปที่ middlewareGroups หัวข้อ api 
+           - 3 ให้เปิด  \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class, ออก
+        - สร้างไฟล์ Auth Controller เพื่อเวลาข้อใช้ api         
+          php artisan make:controller AuthController --model=User 
 
 
 
-
-  $employees = Employee::all();
-        return view('pages.employeelist', compact('employees'));
 
 //คำสั่ง laravel ทั้งหมด 
 Available commands:
