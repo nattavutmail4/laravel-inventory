@@ -19,7 +19,7 @@ class ProductController extends Controller
         // return Product::all();
         // อ่านข้อมูลแบบแบ่งหน้า
         // return Product::orderBy('id','desc')->paginate(25);
-        return Product::with('users','users')->orderBy('id','desc')->paginate(25);
+        return Product::orderBy('id','desc')->paginate(25);
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // เช็คสิทธิ์ (role) ว่าเป็น admin (1) 
+        // เช็คสิทธิ์ (role) ว่าเป็น admin (1)
         $user = auth()->user();
 
         if($user->tokenCan("1")){
@@ -56,7 +56,7 @@ class ProductController extends Controller
 
             // เช็คว่าผู้ใช้มีการอัพโหลดภาพเข้ามาหรือไม่
             if(!empty($image)){
-                
+
                 // อัพโหลดรูปภาพ
                 // เปลี่ยนชื่อรูปที่ได้
                 $file_name = "product_".time().".".$image->getClientOriginalExtension();
@@ -119,11 +119,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // เช็คสิทธิ์ (role) ว่าเป็น admin (1) 
+        // เช็คสิทธิ์ (role) ว่าเป็น admin (1)
         $user = auth()->user();
 
         if($user->tokenCan("1")){
-            
+
             $request->validate([
                 'name' => 'required',
                 'slug' => 'required',
@@ -144,7 +144,7 @@ class ProductController extends Controller
             if (!empty($image)) {
 
                 $file_name = "product_" . time() . "." . $image->getClientOriginalExtension();
-                
+
                 $imgwidth = 400;
                 $imgHeight = 400;
                 $folderupload = public_path('/images/products/thumbnail');
@@ -185,8 +185,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        
-        // เช็คสิทธิ์ (role) ว่าเป็น admin (1) 
+
+        // เช็คสิทธิ์ (role) ว่าเป็น admin (1)
         $user = auth()->user();
 
         if($user->tokenCan("1")){
@@ -212,9 +212,9 @@ class ProductController extends Controller
                         ->where('name','like','%'.$keyword.'%')
                         ->orderBy('id','desc')
                         ->paginate(25);
-        // SELECT * FROM products INNER JOIN users 
-        // ON (products.user_id=users.id) 
-        // WHERE products.name like '%sam%' 
+        // SELECT * FROM products INNER JOIN users
+        // ON (products.user_id=users.id)
+        // WHERE products.name like '%sam%'
         // ORDER BY products.id DESC LIMIT 0,25
     }
 

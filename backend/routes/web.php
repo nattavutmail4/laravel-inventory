@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return ['status'=>true,'message'=>'Who  are you!','url'=>'https://www.youtube.com/watch?v=O7JVYSsEehU'];
+    return [];
 });

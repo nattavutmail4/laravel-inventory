@@ -11,7 +11,7 @@ class AuthController extends Controller
         //Validate fild.
         //ตอนส่ง json create
         /**
-         * fileds ที่ส่ง 
+         * fileds ที่ส่ง
          * 'fullname' => ''
          * 'username' => ''
          * 'email' => ''
@@ -28,15 +28,17 @@ class AuthController extends Controller
             'tel'=>'required',
             'role'=>'required|integer',
         ]);
-      
         $user = User::create([
             'fullname'=>$fields['fullname'],
             'username'=>$fields['username'],
             'email'=>$fields['email'],
-            'password'=>bcrypt($fields['password']), //เข้ารหัส password ด้วย bcrypt in laravel เป็น sha
+            'password'=>bcrypt($fields['password']), //เข้ารหัส password ด้วย bcrypt in laravel เป็น sha256
             'tel'=>$fields['tel'],
             'role'=>$fields['role'],
         ]);
+
+        // $user = User::create($fields);
+
         //create token
         $token = $user->createToken($request->userAgent(),["$user->role"])->plainTextToken;
         $response = [
@@ -44,6 +46,7 @@ class AuthController extends Controller
             'token'=>$token
         ];
         return response($response,201);
+
     }
     public function login(Request $request){
          //Validate fild
@@ -54,7 +57,7 @@ class AuthController extends Controller
         //Check email
         $user = User::where('email',$fields['email'])->first();
 
-        // Check password    in laravel Hash::check       //input            
+        // Check password    in laravel Hash::check       //input
         if(!$user || !Hash::check($fields['password'],$user->password)){ // ถ้าไม่พบ
             return response([
                 'message' => 'Invalid login!'

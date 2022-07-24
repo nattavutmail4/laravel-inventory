@@ -23,10 +23,22 @@ use App\Http\Controllers\AuthController;
 Route::post('register',[AuthController::class, 'register']);
 Route::post('login',[AuthController::class, 'login']);
 
-// Protected routes
+// // Protected routes
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::resource('products', ProductController::class);
     Route::get('products/search/{keyword}', [ProductController::class, 'search']);
     Route::post('logout',[AuthController::class, 'logout']);
 });
+
+// Route::name('admin')->group(['middleware' => 'auth:sanctum'], function(){
+//     Route::get('/users', function () {
+//        return 'd';
+//     });
+// });
+
+// Route::prefix('admin')->group(['middleware' => 'auth:sanctum'],function(){
+//     Route::resource('products', ProductController::class);
+//     Route::get('products/search/{keyword}', [ProductController::class, 'search']);
+//     Route::post('logout',[AuthController::class, 'logout']);
+// });
 
